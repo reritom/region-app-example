@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 def create_app() -> Flask:
     """
     Application factory, returns an instance of a Flask App.
-    This could be expanded to receive a config object, but for now we only have a variable database uri.
+    This could be expanded to receive a config object.
     """
     # Retrieve the database uri
     db_uri = os.environ.get("db_uri")
