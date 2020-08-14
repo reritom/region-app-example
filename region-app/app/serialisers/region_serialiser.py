@@ -8,8 +8,8 @@ class RegionSerialiser:
         serialised_region = {
             "name": region.name,
             "code": region.code,
-            "totalPopulation": str(region.total_population),
-            "totalArea": str(region.total_area)
+            "totalPopulation": format(region.total_population, ".2f"),
+            "totalArea": format(region.total_area, ".2f")
         }
 
         if osm_details:
