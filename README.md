@@ -1,7 +1,7 @@
 # Example application
 ## Purpose
-The purpose of this application is to store and display data related to Frencnh cities, counties, and regions.
-The region-app Flask app can be run locally (without docker) using Sqlite3 as a database, to do so, navigate to its readme, listed below. The application can also be deployed using Docker, backed by a PostGres instance, to do that, follow this readme.
+The purpose of this application is to store and display data related to French cities, counties, and regions.
+The region-app Flask app can be run locally (without docker) using Sqlite3 as a database, to do so, navigate to its readme, listed below. The application can also be deployed using Docker, backed by a Postgres instance, to do that, follow this readme.
 
 ## Services
 Note: Each service has a nested README which contains more details and can be found by clicking the links below.
@@ -10,7 +10,7 @@ Note: Each service has a nested README which contains more details and can be fo
 
 ## Deployment
 ### Local development with Docker
-In local development, using sqlite3 practically makes little difference. But sometimes we want our environment to reflect the production environment as much as possible, so we need to run a PostGres server on local, and in that case we might as well deploy the complete application in local with Docker.
+In local development, using sqlite3 practically makes little difference. But sometimes we want our environment to reflect the production environment as much as possible, so we need to run a Postgres server on local, and in that case we might as well deploy the complete application in local with Docker.
 
 Obviously you'll need Docker installed for this for work.
 
@@ -47,10 +47,10 @@ Once the application is deployed and seeded, you should be able to target it on 
 - Pandas not working with the alpine docker base meant I had to backtrack on that part of the solution, which cost me some time.
 
 ### Things to improve on the deployment level
-- Due to the changes I had to make to handle the seeding cli, which meant using db_uri in the environment, my docker-compose files pass the db_uri to the Dockerfile as an arg. This means the PostGres db_uri, including the username and password, are visible in the docker-compose.yaml. Really these should use `secrets` if this were to be improved.
+- Due to the changes I had to make to handle the seeding cli, which meant using db_uri in the environment, my docker-compose files pass the db_uri to the Dockerfile as an arg. This means the Postgres db_uri, including the username and password, are visible in the docker-compose.yaml. Really these should use `secrets` if this were to be improved.
 
 ### Things to improve in general (or to add if I had more time)
-- Problems to improve related specifically to the region-app are noted at the bottom of the other ![readme](region-app/README.md).
+- Problems to improve related specifically to the region-app are noted at the bottom of the other [readme](region-app/README.md).
 - I would create a simple postman collection to demonstrate the API.
 - I would add an api definition, probably using openApi with swagger.
 - No linting is set up at this stage, that would be done at CI/CD time.
