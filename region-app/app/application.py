@@ -40,6 +40,8 @@ def create_app() -> Flask:
 
     return app
 
+
+# We will add a command line function for populating the database with the data from a given csv
 @click.command()
 @click.argument("csv_path")
 @with_appcontext
