@@ -48,8 +48,13 @@ class ApplicationTest(unittest.TestCase):
         # If there is something failing in the seed function, this below print statement is pretty much the only place to see it.
         # print(result) # Keep this for future debugging
 
-        # Check the regions are visible, there should be 27
-        response = self.app.get("/api/regions")
+        # Patch our controller so avoid using the api. Our unit test should not be coupled to an external provider
+        with patch("app.controllers.region_controller.OSMApi") as dummy_osm:
+            dummy_osm.get_state_details.return_value = None
+            response = self.app.get("/api/regions")
+
         self.assertTrue(response.status_code == 200)
+
+        # Check the regions are visible, there should be 27
         regions = response.get_json()
         self.assertEqual(len(regions), 27)

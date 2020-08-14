@@ -17,7 +17,7 @@ class OSMApi:
         """
         params = {"country": country, "state": state, "format": "json"}
         response = requests.get(f"{OSMApi.SEARCH_URL}", params=params)
-
+        
         if response.ok:
             # TODO: Typically I would return a dataclass here created from the JSON, but it is currently out of scope.
             # The API returns a list of none/one (and maybe more) items
