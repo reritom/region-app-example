@@ -10,6 +10,10 @@ logger.setLevel(logging.INFO)
 
 
 def populate(csv_path):
+    """
+    This function is used for populating the application database with the data in the provided csv path.
+    As of writing this, the function does Not handle re-seeding with an updated version of the same dataset.
+    """
     logger.info("Populating")
     csv_dataframe = pd.read_csv(csv_path, delimiter=";")
 
