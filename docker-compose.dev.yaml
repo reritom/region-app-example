@@ -1,0 +1,21 @@
+version: '2'
+services:
+    region-app:
+        build:
+          context: ./region-app
+        environment:
+          db_uri: "postgresql+psycopg2://regionapp:password@postgres/regionapp"
+        depends_on:
+            - postgres
+        ports:
+            - "8080:8080"
+        volumes:
+            - ./region-app/:/src
+        entrypoint: gunicorn --bind 0.0.0.0:8080 main:app --reload
+    postgres:
+        build: ./postgres
+        environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=magical_password
+        ports:
+          - "5432:5432"
