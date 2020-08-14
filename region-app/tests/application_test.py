@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 import os
-from app.application import create_app
+from app.application import create_app, seed
 
 
 class ApplicationTest(unittest.TestCase):
@@ -13,7 +13,8 @@ class ApplicationTest(unittest.TestCase):
 
         # Create a dummy db
         db_name = "test.db"
-        self.db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), db_name)
+        self.dir_path = os.path.dirname(os.path.abspath(__file__))
+        self.db_path = os.path.join(self.dir_path, db_name)
         with open(self.db_path, 'w') as f:
             pass
 
@@ -24,6 +25,7 @@ class ApplicationTest(unittest.TestCase):
             app = create_app()
 
         app.testing = True
+        self.uninstanciated_app = app
         self.app = app.test_client()
 
     def tearDown(self):
@@ -36,3 +38,18 @@ class ApplicationTest(unittest.TestCase):
         self.assertTrue(response.status_code == 200)
         regions = response.get_json()
         self.assertTrue(len(regions) == 0)
+
+    def test_populate_and_get_regions(self):
+        # Test the population works
+        runner = self.uninstanciated_app.test_cli_runner()
+
+        # Invoke the command directly
+        result = runner.invoke(seed, [os.path.join(os.path.dirname(self.dir_path), "static", "correspondance-code-insee-code-postal.csv")])
+        # If there is something failing in the seed function, this below print statement is pretty much the only place to see it.
+        # print(result) # Keep this for future debugging
+
+        # Check the regions are visible, there should be 27
+        response = self.app.get("/api/regions")
+        self.assertTrue(response.status_code == 200)
+        regions = response.get_json()
+        self.assertEqual(len(regions), 27)

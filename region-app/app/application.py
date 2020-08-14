@@ -42,11 +42,11 @@ def create_app() -> Flask:
 
 
 # We will add a command line function for populating the database with the data from a given csv
-@click.command()
+@click.command("seed")
 @click.argument("csv_path")
 @with_appcontext
 def seed(csv_path):
     db.create_all()
-    if not os.path.is_file(csv_path):
+    if not os.path.isfile(csv_path):
         raise Exception(f"Invalid file path {csv_path}")
     populate(csv_path)
