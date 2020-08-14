@@ -2,7 +2,7 @@
 
 ## Design considerations
 - Flask Blueprints are overkill in this case and often cause scaling issues if there is need for common models.
-- Using a library like Flask-RESTful will be skipped because it locks you into the framework which causes issues with coupling and handling super-resources.
+- Using a library like Flask-RESTful will be skipped because it locks you into the framework which causes issues with coupling, handling super-resources, and really works best only with simple CRUD apps, which most applications evolve not to be.
 - Due to the external API being consumed, FastApi could be used (which is asynchronous) with very few modifications to this codebase, FastApi also has the advantage of being self documenting with the ability to create its own openApi specification.
 - Tests are created and run using `unittest` as opposed to `pytest`. `unittest` is powerful and robust, and this current case, the useful parts of `pytest` aren't required.
 - The CSV will be used to populate database, this can be done at any point.
@@ -35,5 +35,17 @@ python -m unittest discover -p "*_test.py"
 This shows how to deploy this specific application on local without using Docker. In this case, we will deploy using an sqlite3 database. For simplicity, and the ability to use Flask hot reload tool, we will deploy simply using the Flask builtin server (though this shouldn't be done in a production environment).
 ```
 # This command will deploy the application on localhost:8080
+export db_uri="sqlite:///app.sqlite3"
 python main.py
 ```
+
+## Seeding the database
+To seed the database with data from a CSV file, run the following command with the `<` and `>`.
+```
+flask seed <path_to_csv>
+```
+Once seeded, the database can't be re-seeded from the same dataset currently as the seeding script doesn't handle repopulation and updating.
+
+# Things to improve
+- The seeding script could be updated to allow for re-seeding with the same dataset, allowing existing rows to be updated with new values, and allowing new rows to be added.
+- ...
