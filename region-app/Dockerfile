@@ -14,4 +14,8 @@ WORKDIR /src
 
 # Setup the deployment
 EXPOSE 8080
+
+# We use "await_postgres" as a delay until the postgres server is ready to accept connections
+# else the Flask app with fail to connect and then exit.
+# Using "depends_on" in the docker-compose doesn't help in this sort of situation
 CMD sh -c "./await_postgres.sh && gunicorn --bind 0.0.0.0:8080 wsgi:app"

@@ -43,7 +43,14 @@ Once the application is deployed and seeded, you should be able to target it on 
 ## Notes
 ### Things that slowed me down
 - Parsing the CSV was a bit slow when creating the models due to the nature checking which field in which model should be represented by which column from the CSV dataset
-- I haven't made a feeding script with Flask before, and in doing so, it prevented the design pattern that I usually use when handling creating application instances with different database uris, which meant I had to access the db_uri from the os.environ, instead of passing it as an argument to the create_app factory. This has further consequences related to how I handle db_uris with the Dockerfile and the docker-compose files.
+- I haven't made a feeding script with Flask before, and in doing so, it prevented the design pattern that I usually use when handling creating application instances with different database `uri`s, which meant I had to access the `db_uri` from the os environment, instead of passing it as an argument to the create_app factory. This has further consequences related to how I handle `db_uri`s with the Dockerfile and the docker-compose files.
+- Pandas not working with the alpine docker base meant I had to backtrack on that part of the solution, which cost me some time.
 
 ### Things to improve on the deployment level
 - Due to the changes I had to make to handle the seeding cli, which meant using db_uri in the environment, my docker-compose files pass the db_uri to the Dockerfile as an arg. This means the PostGres db_uri, including the username and password, are visible in the docker-compose.yaml. Really these should use `secrets` if this were to be improved.
+
+### Things to improve in general
+- Problems to improve related specifically to the region-app are noted at the bottom of the other ![readme](region-app/README.md).
+
+### Time taken
+Approximately 3 hours of coding time spread across a 7-8 hour period. 
