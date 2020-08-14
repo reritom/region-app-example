@@ -5,8 +5,8 @@ The region-app Flask app can be run locally (without docker) using Sqlite3 as a 
 
 ## Services
 Note: Each service has a nested README which contains more details and can be found by clicking the links below.
-- ![Region-App](region-app/README.md)
-- ![PostGres](postgres/README.md)
+- [Region-App](region-app/README.md)
+- [PostGres](postgres/README.md)
 
 ## Deployment
 ### Local development with Docker

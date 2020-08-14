@@ -19,6 +19,7 @@ The application is split into `controllers`, `models`, and `serialisers`. Typica
 - Originally I used Pandas for reading the CSV used for seeding the database, however it turns out that that doesn't work well with the docker alpine images, this is discussed in ![this thread](https://stackoverflow.com/questions/49037742/why-does-it-take-ages-to-install-pandas-on-alpine-linux), so I had to fallback to a different module.
 
 ## Installation
+Note: All the following commands assume you are inside the `region-app` subdirectory.
 ```
 # Create and activate your given env (conda, venv, etc)
 ...
