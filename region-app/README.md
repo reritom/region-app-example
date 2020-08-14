@@ -28,7 +28,7 @@ pip install -r requirements.txt
 ```
 
 ## Testing
-This goes through how to run the unittests.
+The following command can be used to run the unit tests:
 ```
 python -m unittest discover -p "*_test.py"
 ```
