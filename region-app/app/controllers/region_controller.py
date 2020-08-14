@@ -3,9 +3,6 @@ from app.models import Region
 from app.serialisers import RegionSerialiser
 from app.apis import OSMApi
 from app.tools.constants import COUNTRY_FRANCE
-import logging
-
-logger = logging.getLogger(__name__)
 
 
 class RegionController:
@@ -32,4 +29,5 @@ class RegionController:
                 osm_details=OSMApi.get_state_details(country=COUNTRY_FRANCE, state=region.name))
             for region in regions
         ]
+        
         return jsonify(serialised_regions), 200

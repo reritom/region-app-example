@@ -11,7 +11,7 @@ services:
             - "8080:8080"
         volumes:
             - ./region-app/:/src
-        entrypoint: gunicorn --bind 0.0.0.0:8080 main:app --reload
+        entrypoint: sh -c "./await_postgres.sh && gunicorn --bind 0.0.0.0:8080 wsgi:app --reload"
     postgres:
         build: ./postgres
         environment:

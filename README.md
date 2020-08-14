@@ -22,9 +22,10 @@ If you get the following error in your docker-compose logs, run `chmod +x region
 ```
 region-app_1  | sh: ./await_postgres.sh: Permission denied
 ```
+Once deployed, if you make any changes in `region-app/app`, it will trigger `gunicorn` to reload the application, allowing your changes to be present immediately. This is useful for rapid development and bug fixing.
 
-### Local testing (perhaps for looking into production bugs)
-In this case, we want to use the absolute version of our application (whichever version is in prod), so we will take the correct version from github (in this example we haven't handled versioning, so we will just take the most recent commit from the repo). The aforementioned logic is handled by the docker-compose file.
+### Local stable deployment
+In this case, we want to use an absolute version of our application. Ideally, if this application had its own repo, the docker-compose would build directly from their based on whichever version we want to deploy, but for now it uses the local directory too.
 ```
 docker-compose -f docker-compose.yaml up -V --build --force-recreate
 ```
@@ -34,7 +35,10 @@ To seed the docker deployed instance of the application, get the region-app cont
 ```
 docker exec <container_id> flask seed static/correspondance-code-insee-code-postal.csv
 ```
-Note: I haven't explicitly added any persistent volumes for the database in this example, so when you redeploy, you will need to re-seed.
+Note: I haven't explicitly added any persistent volumes for the database in this example, so when you redeploy, you will need to re-seed (if you used the command I provided above, because this explicitly cleans volumes, which is again for easing development).
+
+### Targeting
+Once the application is deployed and seeded, you should be able to target it on `127.0.0.1:8080/api/regions`. Additionally, one can use pagination as such `127.0.0.1:8080/api/regions?limit=5&page=1`, where `limit` is the number of items to show per page, and `page` is the page number. The first request will be slower as it will handle caching the external API calls. The subsequent calls will be immediate.
 
 ## Notes
 ### Things that slowed me down

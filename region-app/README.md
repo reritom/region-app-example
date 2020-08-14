@@ -5,19 +5,18 @@
 - Using a library like Flask-RESTful will be skipped because it locks you into the framework which causes issues with coupling, handling super-resources, and really works best only with simple CRUD apps, which most applications evolve not to be.
 - Due to the external API being consumed, FastApi could be used (which is asynchronous) with very few modifications to this codebase, FastApi also has the advantage of being self documenting with the ability to create its own openApi specification.
 - Tests are created and run using `unittest` as opposed to `pytest`. `unittest` is powerful and robust, and this current case, the useful parts of `pytest` aren't required.
-- The CSV will be used to populate database, this can be done at any point.
 
 ### Architecture
 The application is split into `controllers`, `models`, and `serialisers`. Typically, one would also add a `service` and `dao` layer, but in this example, the benefits of these extra layers wouldn't be clear and instead would appear to just add extra boiler-plate code.
 
 #### Design notes:
-- Models will be Flask-SQLAlchemy based, its a well document library
+- Models will be Flask-SQLAlchemy based, its a well documented library.
 - Controllers take the request and perform the business logic. The service would usually perform the business logic, while the controller would just consume the service, allowing a decoupling of the flask request interface with our business code. Having a service layer is useful when you have super-resources that encapsulate sub resources. Fortunately, it's not costly to refactor a service layer when it is required.
 - Serialisers are part of the presentation layer. A serialiser takes an instance of a model and converts it into a dictionary that is able to serialised by the `flask.jsonify` function. The name itself is a misnomer, because it doesn't actually serialise.
 - The model tables are created in the database at run-time if they aren't already present. This is not how I would handle this in production. One could use something like `Flask-Migrate` to handle the database migrations, however I consider this as step in the wrong direction as it overly couples your DBA setup with the ORM you are using. A better approach from my perspective would be to have an external DBA repo with its own tooling for handling migrations. The database should be versioned and considered like any other component.
 - Often one will see a json response to a `GET /resources` in the form of a list. When adding pagination, they then change the response to be an object which contains a nested list, and keys indicating the page number, the total number of pages, etc, which leads to inconsistency between how paginated and non-paginated resources are presented. In this case, we paginate returning just a list, and allow the client to deduce how many pages they would like to traverse. Perhaps this could be improved by having an OPTIONS request return the total number of records.
-- We show API integration using the OpenStreetMap API, however, the data from that API is largely static, so while a time based cache is ok for this example, really we should either store a local copy on our end (maybe as part of the region model). I imagine for this example, the purpose is to show run-time API integration as opposed to pre-deployment enrichment of the dataset that we use to seed the database with.
-- Originally I used Pandas for reading the csv used for seeding the database, however it turns out that that doesn't work well with the docker alpine images, this is discussed in ![this thread](https://stackoverflow.com/questions/49037742/why-does-it-take-ages-to-install-pandas-on-alpine-linux), so I had to fallback to a different module.
+- We show API integration using the OpenStreetMap API, however, the data from that API is largely static, so while a runtime cache is ok for this example, really we should either store a local copy on our end (maybe as part of the region model). I imagine for this example, the purpose is to show run-time API integration as opposed to pre-deployment enrichment of the dataset that we use to seed the database with.
+- Originally I used Pandas for reading the CSV used for seeding the database, however it turns out that that doesn't work well with the docker alpine images, this is discussed in ![this thread](https://stackoverflow.com/questions/49037742/why-does-it-take-ages-to-install-pandas-on-alpine-linux), so I had to fallback to a different module.
 
 ## Installation
 ```
@@ -49,7 +48,7 @@ Make sure you are in the `region-app` directory:
 flask seed <path_to_csv>
 
 # For example, based on the CSV provided in this repo
-flask seed $PWD/static/correspondance-code-insee-code-postal.csv
+flask seed static/correspondance-code-insee-code-postal.csv
 ```
 Once seeded, the database can't be re-seeded from the same dataset currently as the seeding script doesn't handle repopulation and updating.
 
