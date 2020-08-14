@@ -53,6 +53,7 @@ Once the application is deployed and seeded, you should be able to target it on 
 - Problems to improve related specifically to the region-app are noted at the bottom of the other ![readme](region-app/README.md).
 - I would create a simple postman collection to demonstrate the API.
 - I would add an api definition, probably using openApi with swagger.
+- No linting is set up at this stage, that would be done at CI/CD time.
 
 ### Time taken
 Approximately 3 hours of coding time spread across a 7-8 hour period.
