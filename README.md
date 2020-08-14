@@ -55,6 +55,7 @@ Once the application is deployed and seeded, you should be able to target it on 
 - I would add an api definition, probably using openApi with swagger.
 - No linting is set up at this stage, that would be done at CI/CD time.
 - Add more precise unit testing, currently their are two tests which test the core usecases.
+- This is mentioned elsewhere, but from the list of steps, I am assuming that the OSM API should be included at runtime instead of supplementing the database. This means the first request is always a bit slow, and then all the subsequent ones are fine because of the caching. So I would create a local cache of the OSM data prior to the endpoint being called, if I had more time.
 
 ### Time taken
 Approximately 3 hours of coding time spread across a 7-8 hour period.

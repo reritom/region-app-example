@@ -55,3 +55,4 @@ Once seeded, the database can't be re-seeded from the same dataset currently as 
 # Things to improve
 - The seeding script could be updated to allow for re-seeding with the same dataset, allowing existing rows to be updated with new values, and allowing new rows to be added.
 - The request made to OpenStreetMap has no explicit error handling in case of timeout or network issues, this should be handled more specifically.
+- The requests to OpenStreetMap could be sped up by running them in parallel using something like a ThreadPoolExecutor.
