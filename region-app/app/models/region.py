@@ -9,3 +9,21 @@ class Region(db.Model):
 
     # Children
     counties = db.relationship("County", back_populates="region", lazy=True)
+
+    @property
+    def total_population(self):
+        # Get the total population by summing the child cities of the child regions
+        total = 0
+        for county in self.counties:
+            for city in county.cities:
+                total += city.population
+        return total
+
+    @property
+    def total_area(self):
+        # Get the total area by summing the child cities of the child regions
+        total = 0
+        for county in self.counties:
+            for city in county.cities:
+                total += city.area
+        return total

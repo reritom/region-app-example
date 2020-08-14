@@ -47,4 +47,6 @@ def create_app() -> Flask:
 @with_appcontext
 def seed(csv_path):
     db.create_all()
+    if not os.path.is_file(csv_path):
+        raise Exception(f"Invalid file path {csv_path}")
     populate(csv_path)

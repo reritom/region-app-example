@@ -49,8 +49,13 @@ Once the application is deployed and seeded, you should be able to target it on 
 ### Things to improve on the deployment level
 - Due to the changes I had to make to handle the seeding cli, which meant using db_uri in the environment, my docker-compose files pass the db_uri to the Dockerfile as an arg. This means the PostGres db_uri, including the username and password, are visible in the docker-compose.yaml. Really these should use `secrets` if this were to be improved.
 
-### Things to improve in general
+### Things to improve in general (or to add if I had more time)
 - Problems to improve related specifically to the region-app are noted at the bottom of the other ![readme](region-app/README.md).
+- I would create a simple postman collection to demonstrate the API.
+- I would add an api definition, probably using openApi with swagger.
 
 ### Time taken
-Approximately 3 hours of coding time spread across a 7-8 hour period. 
+Approximately 3 hours of coding time spread across a 7-8 hour period.
+
+### Bugs
+- Maybe not a bug, but the totalPopulation and totalArea units aren't clear.
