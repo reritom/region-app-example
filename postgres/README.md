@@ -1,4 +1,4 @@
-# PostGres service
+# Postgres service
 The purpose of this service is to be used as the database server for our region-app service.
 In a production environment, we are unlikely to use Sqlite3, and more like to use something similar to Postgres.
 
