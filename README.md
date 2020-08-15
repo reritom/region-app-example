@@ -58,7 +58,7 @@ Once the application is deployed and seeded, you should be able to target it on 
 - This is mentioned elsewhere, but from the list of steps, I am assuming that the OSM API should be included at runtime instead of supplementing the database. This means the first request is always a bit slow, and then all the subsequent ones are fine because of the caching. So I would create a local cache of the OSM data prior to the endpoint being called, if I had more time.
 
 ### Time taken
-Approximately 3 hours of coding time spread across a 7-8 hour period.
+Approximately 3 hours of coding time spread across a 7-8 hour period, with a bunch of Readme updates after during and after finishing.
 
 ### Bugs
 - Maybe not a bug, but the totalPopulation and totalArea units aren't clear.

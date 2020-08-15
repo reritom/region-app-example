@@ -21,7 +21,7 @@ The application is split into `controllers`, `models`, and `serialisers`. Typica
 ## Installation
 Note: All the following commands assume you are inside the `region-app` subdirectory.
 ```
-# Create and activate your given env (conda, venv, etc)
+# Create and activate your given env (conda, venv, etc) - Python 3.7+
 ...
 
 # Install the dependencies
